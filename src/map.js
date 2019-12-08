@@ -1,4 +1,5 @@
 import L from 'leaflet'
+import { getDepartments } from './deparments'
 
 let map = {
     _map: null,
@@ -14,17 +15,6 @@ let map = {
             accessToken: 'pk.eyJ1IjoicGF0NG1hcHMiLCJhIjoiY2szbHQyOHNzMGc1ZDNjbjRmZGhveWtlNSJ9.BBvPpZNDCCav-dtJBsgGAAs'
         }).addTo(this._map)
 
-        // this._map.fitBounds([
-        //     [
-        //         -5.2734375,
-        //         51.069016659603896
-        //     ],
-        //     [
-        //         7.822265625000001,
-        //         42.342305278572816
-        //     ]
-        // ])
-
         this._departmentsLayer = this.createDepartmentsLayer()
         this.showDepartmentsLayer()
 
@@ -32,6 +22,23 @@ let map = {
         this._map.on('zoomend', function (e) {
             this.scaleDepartmentsTooltips()
         }.bind(this))
+
+
+    },
+    getDepartmentLayer(code) {
+        return this._departmentsLayer.getLayers().filter(dep => dep.feature.properties.code == code)[0]
+    },
+    hightlightDeparmentLayer(code) {
+        this._departmentsLayer.getLayers().forEach((dep) => dep.setStyle({
+            fill: false
+        }))
+        const dep = this.getDepartmentLayer(code)
+        console.log(dep)
+        dep.setStyle({
+            fill: true,
+            fillColor: '#df4a16',
+            fillOpacity: 1
+        })
     },
     scaleDepartmentsTooltips() {
         document.querySelectorAll('.leaflet-tooltip').forEach(tooltip => {
@@ -40,9 +47,13 @@ let map = {
         })
     },
     createDepartmentsLayer() {
-        return L.geoJSON(departments, {
+        return L.geoJSON(departmentsGeoJSON, {
+            style: function (feature) {
+                return {
+                    fill: false
+                }
+            },
             onEachFeature: function (feature, layer) {
-                layer.on('click', () => console.log(feature.properties.nom))
                 layer.bindTooltip(feature.properties.nom + '(' + feature.properties.code + ')', { permanent: true, direction: 'center', className: 'depTooltip' })
             }
         })
