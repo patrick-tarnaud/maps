@@ -35,13 +35,8 @@ let map = {
     },
     scaleDepartmentsTooltips() {
         document.querySelectorAll('.leaflet-tooltip').forEach(tooltip => {
-            if (this._map.getZoom() <= 6) {
-                tooltip.classList.remove('depTooltip')
-                tooltip.classList.add('depTooltipZoomout')
-            } else {
-                tooltip.classList.remove('depTooltipZoomout')
-                tooltip.classList.add('depTooltip')
-            }
+            tooltip.style.fontSize = 0.15 * this._map.getZoom() + 'em'
+
         })
     },
     createDepartmentsLayer() {
