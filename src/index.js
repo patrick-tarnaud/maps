@@ -1,3 +1,5 @@
-import { init } from './mymap'
+import { map } from './map'
+import { control } from './control'
 
-init()
+map.initMap()
+control.initControl()

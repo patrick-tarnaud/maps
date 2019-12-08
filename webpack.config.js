@@ -5,6 +5,9 @@ let config = {
     output: {
         path: path.resolve(__dirname, "./dist"),
         filename: "index.js"
+    },
+    optimization: {
+        minimize: false
     }
 }
 
