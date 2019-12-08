@@ -4,16 +4,10 @@ const control = {
     isDeparmentsLayerVisible: true,
     initControl() {
         const switchtDepartmentsLayerButton = document.querySelector("#switchtDepartmentsLayerButton")
-        switchtDepartmentsLayerButton.addEventListener('click', () => this.switchtDepartmentsLayer())
+        switchtDepartmentsLayerButton.addEventListener('click', () => this.switchDepartmentsLayer())
     },
-    switchtDepartmentsLayer() {
-        if (this.isDeparmentsLayerVisible) {
-            map.hideDepartmentsLayer()
-        }
-        else {
-            map.showDepartmentsLayer()
-        }
-        this.isDeparmentsLayerVisible = !this.isDeparmentsLayerVisible
+    switchDepartmentsLayer() {
+        map.switchDepartmentsLayer()
     }
 }
 

@@ -3,6 +3,7 @@ import L from 'leaflet'
 let map = {
     _map: null,
     _departmentsLayer: null,
+    _isDepartmentsLayerVisible: true,
     initMap() {
         this._map = L.map('mapid').setView([46.227638, 2.213749], 7)
 
@@ -13,16 +14,16 @@ let map = {
             accessToken: 'pk.eyJ1IjoicGF0NG1hcHMiLCJhIjoiY2szbHQyOHNzMGc1ZDNjbjRmZGhveWtlNSJ9.BBvPpZNDCCav-dtJBsgGAAs'
         }).addTo(this._map)
 
-        this._map.fitBounds([
-            [
-                -5.2734375,
-                51.069016659603896
-            ],
-            [
-                7.822265625000001,
-                42.342305278572816
-            ]
-        ])
+        // this._map.fitBounds([
+        //     [
+        //         -5.2734375,
+        //         51.069016659603896
+        //     ],
+        //     [
+        //         7.822265625000001,
+        //         42.342305278572816
+        //     ]
+        // ])
 
         this._departmentsLayer = this.createDepartmentsLayer()
         this.showDepartmentsLayer()
@@ -51,10 +52,15 @@ let map = {
             }
         })
     },
+    switchDepartmentsLayer() {
+        this._isDepartmentsLayerVisible ? this.hideDepartmentsLayer() : this.showDepartmentsLayer()
+    },
     showDepartmentsLayer() {
+        this._isDepartmentsLayerVisible = true
         this._departmentsLayer.addTo(this._map)
     },
     hideDepartmentsLayer() {
+        this._isDepartmentsLayerVisible = false
         this._departmentsLayer.remove()
     }
 }
