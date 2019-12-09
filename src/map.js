@@ -33,12 +33,17 @@ let map = {
             fill: false
         }))
         const dep = this.getDepartmentLayer(code)
-        console.log(dep)
         dep.setStyle({
             fill: true,
-            fillColor: '#df4a16',
-            fillOpacity: 1
+            fillColor: 'blue',
+            fillOpacity: 0.3
         })
+    },
+    zoominDepartmentLayer(code) {
+        const dep = this.getDepartmentLayer(code)
+        if (dep) {
+            this._map.fitBounds(dep.getBounds())
+        }
     },
     scaleDepartmentsTooltips() {
         document.querySelectorAll('.leaflet-tooltip').forEach(tooltip => {

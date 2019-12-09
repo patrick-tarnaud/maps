@@ -4,6 +4,7 @@ import { getDepartments } from './deparments'
 const control = {
     _switchtDepartmentsLayerButton: null,
     _departmentsSelect: null,
+    _zoominButton: null,
     initControl() {
         // button : show or hide departements layer
         this._switchtDepartmentsLayerButton = document.querySelector("#switchtDepartmentsLayerButton")
@@ -14,7 +15,13 @@ const control = {
         this.fillDepartmentsSelect()
         this._departmentsSelect.addEventListener('change', () => this.selectDepartment())
 
+        // button : zoomin
+        this._zoominButton = document.querySelector('#zoominButton')
+        this._zoominButton.addEventListener('click', () => this.zoominDepartmentLayer())
 
+    },
+    zoominDepartmentLayer() {
+        map.zoominDepartmentLayer(this._departmentsSelect.value)
     },
     selectDepartment(e) {
         map.hightlightDeparmentLayer(this._departmentsSelect.value)
