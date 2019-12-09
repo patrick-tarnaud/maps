@@ -5,6 +5,7 @@ const control = {
     _switchtDepartmentsLayerButton: null,
     _departmentsSelect: null,
     _zoominButton: null,
+    _zoomoutButton: null,
     initControl() {
         // button : show or hide departements layer
         this._switchtDepartmentsLayerButton = document.querySelector("#switchtDepartmentsLayerButton")
@@ -19,6 +20,13 @@ const control = {
         this._zoominButton = document.querySelector('#zoominButton')
         this._zoominButton.addEventListener('click', () => this.zoominDepartmentLayer())
 
+        // button : zoomout
+        this._zoomoutButton = document.querySelector('#zoomoutButton')
+        this._zoomoutButton.addEventListener('click', () => this.zoomoutDepartmentLayer())
+
+    },
+    zoomoutDepartmentLayer() {
+        map.zoomoutDepartmentLayer()
     },
     zoominDepartmentLayer() {
         map.zoominDepartmentLayer(this._departmentsSelect.value)

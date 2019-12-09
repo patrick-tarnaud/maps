@@ -23,6 +23,7 @@ let map = {
             this.scaleDepartmentsTooltips()
         }.bind(this))
 
+        this.zoomoutDepartmentLayer()
 
     },
     getDepartmentLayer(code) {
@@ -44,6 +45,9 @@ let map = {
         if (dep) {
             this._map.fitBounds(dep.getBounds())
         }
+    },
+    zoomoutDepartmentLayer() {
+        this._map.fitBounds(this._departmentsLayer.getBounds())
     },
     scaleDepartmentsTooltips() {
         document.querySelectorAll('.leaflet-tooltip').forEach(tooltip => {
