@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="maps.css" />
+</head>
+
+<body>
+    <div id='container'>
+        <div id="mapid"></div>
+        <div id="control">
+            <div>
+                <button id="switchtDepartmentsLayerButton">Départements</button>
+                <button id="zoomoutButton">Zoomout</button>
+            </div>
+            <div>
+                <select id="departmentsSelect"></select>
+                <button id="zoominButton">Zoomin</button>
+            </div>
+
+        </div>
+    </div>
+    <script src="departments.geojson" type="text/javascript"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+
+</html>
