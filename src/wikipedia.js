@@ -7,10 +7,8 @@ export class Wikipedia {
             method: 'GET'
         }).then(function (response) {
             return response.json()
-                .then(function (value) {
-                    console.log('value', value)
-                    return value
-                });
+        }).then(function (json) {
+            return json
         })
     }
 }
