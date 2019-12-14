@@ -1,5 +1,6 @@
 import L from 'leaflet'
 import { getDepartments } from './deparments'
+import { Wikipedia } from './wikipedia'
 
 let map = {
     _map: null,
@@ -24,6 +25,7 @@ let map = {
         }.bind(this))
 
         this.zoomoutDepartmentLayer()
+        // Wikipedia.getExtracts('Nantes')
 
     },
     getDepartmentLayer(code) {
@@ -55,15 +57,27 @@ let map = {
 
         })
     },
+    showWikipediaExtracts(name) {
+        // let extracts
+        // extracts = await Wikipedia.getExtracts(name)
+        Wikipedia.getExtracts(name).then(function (extracts) {
+            console.log('extracts', extracts)
+        })
+        // console.log('extracts', Wikipedia.getExtracts(name))
+    },
     createDepartmentsLayer() {
         return L.geoJSON(departmentsGeoJSON, {
             style: function (feature) {
                 return {
-                    fill: false
+                    fill: true,
+                    fillColor: "transparent"
                 }
             },
             onEachFeature: function (feature, layer) {
                 layer.bindTooltip(feature.properties.nom + '(' + feature.properties.code + ')', { permanent: true, direction: 'center', className: 'depTooltip' })
+                layer.on('click', function (e) {
+                    map.showWikipediaExtracts(feature.properties.nom)
+                })
             }
         })
     },
