@@ -6,6 +6,7 @@ let map = {
     _map: null,
     _departmentsLayer: null,
     _isDepartmentsLayerVisible: true,
+    _wikipedia: null,
     initMap() {
         this._map = L.map('mapid').setView([46.227638, 2.213749], 7)
 
@@ -25,15 +26,16 @@ let map = {
         }.bind(this))
 
         this.zoomoutDepartmentLayer()
-        // Wikipedia.getExtracts('Nantes')
 
+        this._wikipedia = document.querySelector('#wikipedia')
     },
     getDepartmentLayer(code) {
         return this._departmentsLayer.getLayers().filter(dep => dep.feature.properties.code == code)[0]
     },
     hightlightDeparmentLayer(code) {
         this._departmentsLayer.getLayers().forEach((dep) => dep.setStyle({
-            fill: false
+            fill: true,
+            fillColor: "transparent"
         }))
         const dep = this.getDepartmentLayer(code)
         dep.setStyle({
@@ -57,13 +59,15 @@ let map = {
 
         })
     },
-    showWikipediaExtracts(name) {
-        // let extracts
-        // extracts = await Wikipedia.getExtracts(name)
-        Wikipedia.getExtracts(name).then(function (extracts) {
-            console.log('extracts', extracts)
-        })
-        // console.log('extracts', Wikipedia.getExtracts(name))
+    async showWikipediaExtract(name) {
+        let extract
+        try {
+            extract = await Wikipedia.getExtract(name)
+        } catch (error) {
+            // NOP
+        }
+        this._wikipedia.innerHTML = extract
+
     },
     createDepartmentsLayer() {
         return L.geoJSON(departmentsGeoJSON, {
@@ -76,7 +80,7 @@ let map = {
             onEachFeature: function (feature, layer) {
                 layer.bindTooltip(feature.properties.nom + '(' + feature.properties.code + ')', { permanent: true, direction: 'center', className: 'depTooltip' })
                 layer.on('click', function (e) {
-                    map.showWikipediaExtracts(feature.properties.nom)
+                    map.showWikipediaExtract(feature.properties.nom)
                 })
             }
         })
