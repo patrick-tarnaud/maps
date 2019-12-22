@@ -1,6 +1,8 @@
 import { map } from './map'
 import { getDepartments } from './deparments'
 
+// develop commit +1
+
 const control = {
     _switchtDepartmentsLayerButton: null,
     _departmentsSelect: null,
