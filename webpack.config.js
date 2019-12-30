@@ -7,7 +7,7 @@ let config = {
         filename: "index.js"
     },
     optimization: {
-        minimize: false
+        minimize: process.env == 'production' ? true : false
     },
     module: {
         rules: [
@@ -20,6 +20,14 @@ let config = {
             },
         ],
     },
+    devServer: {
+        contentBase: path.resolve(__dirname, "./dist"),
+        historyApiFallback: true,
+        inline: true,
+        open: true,
+        hot: true
+      },
+      devtool: "eval-source-map",
 }
 
 module.exports = config

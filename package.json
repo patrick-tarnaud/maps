@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "start": "webpack-dev-server -d --hot --config webpack.config.js --watch",
+    "dev" : "webpack",
+    "build": "cross-env NODE_ENV=production webpack --progress",
+    "build-watch": "webpack --watch"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +15,7 @@
     "leaflet": "^1.6.0"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "css-loader": "^3.4.0",
     "style-loader": "^1.1.1",
     "webpack": "^4.41.2",
